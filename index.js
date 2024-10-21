@@ -4,6 +4,29 @@ const caixaClima = document.querySelector('.caixa-clima');
 const climaDetalhes = document.querySelector('.clima-detalhes');
 const error404 = document.querySelector('.nao-encontrado');
 
+function carregarHistorico() {
+    const historico = JSON.parse(localStorage.getItem('historicoClima')) || [];
+
+    const listaHistorico = document.getElementById('lista-historico');
+    listaHistorico.innerHTML = ''; 
+    historico.forEach(pesquisa => {
+        const itemHistorico = document.createElement('li');
+        itemHistorico.innerHTML = `
+            <strong>Cidade:</strong> ${pesquisa.cidade}, 
+            <strong>Temperatura:</strong> ${pesquisa.temperatura}°C,
+            <strong>Descrição:</strong> ${pesquisa.descricao}, 
+            <strong>Umidade:</strong> ${pesquisa.umidade}%, 
+            <strong>Vento:</strong> ${pesquisa.vento} m/s
+        `;
+        listaHistorico.appendChild(itemHistorico);
+    });
+}
+
+
+window.onload = carregarHistorico;
+
+
+
 pesquisa.addEventListener('click', () => {
     const APIKey = '3d86b0fac7c7851f8b4516796a39add7';
     let cidade = document.querySelector('.caixa-pesquisa input').value;
@@ -16,7 +39,6 @@ pesquisa.addEventListener('click', () => {
         .then(json => {
 
             if (json.cod === '404') {
-                
                 container.style.height = '600px';
                 caixaClima.style.display = 'none';
                 climaDetalhes.style.display = 'none';
@@ -27,6 +49,20 @@ pesquisa.addEventListener('click', () => {
 
             error404.style.display = 'none';
             error404.classList.remove('fadeIn');
+
+            const pesquisaClima = {
+                cidade: cidade,
+                temperatura: Math.round(json.main.temp - 273.15),
+                descricao: json.weather[0].description,
+                umidade: json.main.humidity,
+                vento: parseInt(json.wind.speed)
+            };
+
+            let pesquisasAnteriores = JSON.parse(localStorage.getItem('historicoClima')) || [];
+            pesquisasAnteriores.push(pesquisaClima);
+            localStorage.setItem('historicoClima', JSON.stringify(pesquisasAnteriores));
+
+            carregarHistorico(); 
 
             const imagem = document.querySelector('.caixa-clima img');
             const temperatura = document.querySelector('.caixa-clima .temperatura');
@@ -69,6 +105,9 @@ pesquisa.addEventListener('click', () => {
             caixaClima.classList.add('fadeIn');
             climaDetalhes.classList.add('fadeIn');
             container.style.height = '590px';
+        });
+});
+
 
         })
         
