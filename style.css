@@ -118,6 +118,7 @@ body{
 
 .clima-detalhes .umidade{
     padding-left: 20px;
+    padding-right: 20px;
     justify-content: flex-start;
 }
 
@@ -183,12 +184,13 @@ body{
 .historico-pesquisas h2 {
     text-align: center;
     color: #062830;
-    font-size: 1.5rem;
+    font-size: 15px;
     margin-bottom: 10px;
 }
 
 .historico-pesquisas ul {
     list-style: none;
+    font-size: 10px;
     padding: 0;
 }
 
