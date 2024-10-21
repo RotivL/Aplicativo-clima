@@ -169,3 +169,53 @@ body{
     animation: 0.5a fadeIn forwards;
     animation-delay: 0.5s;
 }
+
+.historico-pesquisas {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    max-height: 200px;
+    overflow-y: auto; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.historico-pesquisas h2 {
+    text-align: center;
+    color: #062830;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.historico-pesquisas ul {
+    list-style: none;
+    padding: 0;
+}
+
+.historico-pesquisas li {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.historico-pesquisas li strong {
+    color: #062830;
+    font-weight: 600;
+}
+
+.historico-pesquisas li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.historico-pesquisas li span {
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.historico-pesquisas li:last-child {
+    margin-bottom: 0;
+}
